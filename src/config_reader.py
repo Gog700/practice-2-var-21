@@ -1,5 +1,3 @@
-"""Module for reading and validating JSON configuration."""
-
 import json
 import os
 
@@ -12,11 +10,10 @@ REQUIRED_KEYS = [
 
 
 class ConfigError(Exception):
-    """Custom exception for configuration errors."""
+    pass
 
 
 def load_config(file_path: str) -> dict:
-    """Load JSON configuration from a file."""
     if not os.path.exists(file_path):
         raise ConfigError(f"Файл конфигурации не найден: {file_path}")
     
@@ -31,7 +28,6 @@ def load_config(file_path: str) -> dict:
 
 
 def validate_config(config: dict) -> None:
-    """Validate keys and data types in the config."""
     for key in REQUIRED_KEYS:
         if key not in config:
             raise ConfigError(f"Отсутствует обязательный параметр: {key}")

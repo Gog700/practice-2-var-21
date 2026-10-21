@@ -1,5 +1,3 @@
-"""Main entry point for Practice 2, Stage 1."""
-
 import argparse
 import sys
 
@@ -7,7 +5,6 @@ from config_reader import load_config, ConfigError
 
 
 def parse_args() -> argparse.Namespace:
-    """Parse command line arguments."""
     parser = argparse.ArgumentParser(description="Dependency Visualizer")
     parser.add_argument(
         "--config", 
@@ -18,7 +15,6 @@ def parse_args() -> argparse.Namespace:
 
 
 def main() -> None:
-    """Run the application."""
     args = parse_args()
     
     try:
