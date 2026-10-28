@@ -32,47 +32,56 @@ def load_config(file_path: str) -> dict:
 
 
 def validate_config(config: dict) -> None:
+    _check_keys(config)
+    _check_package_name(config["package_name"])
+    _check_repo_url(config["repo_url"])
+    _check_test_mode(config["test_mode"])
+    _check_package_version(config["package_version"])
+    _check_max_depth(config["max_depth"])
+
+
+def _check_keys(config: dict) -> None:
     for key in REQUIRED_KEYS:
         if key not in config:
             raise ConfigError(
                 f"Отсутствует обязательный параметр: {key}"
             )
 
-    pkg_name = config["package_name"]
-    if not isinstance(pkg_name, str):
+
+def _check_package_name(name: str) -> None:
+    if not isinstance(name, str) or not name:
         raise ConfigError(
-            "Параметр 'package_name' должен быть строкой."
-        )
-    if not pkg_name:
-        raise ConfigError(
-            "Параметр 'package_name' не может быть пустым."
+            "Параметр 'package_name' должен быть непустой строкой."
         )
 
-    repo_url = config["repo_url"]
-    if not isinstance(repo_url, str) or not repo_url:
+
+def _check_repo_url(url: str) -> None:
+    if not isinstance(url, str) or not url:
         raise ConfigError(
             "Параметр 'repo_url' должен быть непустой строкой."
         )
 
-    test_mode = config["test_mode"]
-    if not isinstance(test_mode, bool):
+
+def _check_test_mode(mode: bool) -> None:
+    if not isinstance(mode, bool):
         raise ConfigError(
-            "Параметр 'test_mode' должен быть логическим."
+            "Параметр 'test_mode' должен быть логическим (true/false)."
         )
 
-    pkg_ver = config["package_version"]
-    if not isinstance(pkg_ver, str):
+
+def _check_package_version(version: str) -> None:
+    if not isinstance(version, str):
         raise ConfigError(
             "Параметр 'package_version' должен быть строкой."
         )
 
-    max_d = config["max_depth"]
-    if not isinstance(max_d, int):
+
+def _check_max_depth(depth: int) -> None:
+    if not isinstance(depth, int):
         raise ConfigError(
             "Параметр 'max_depth' должен быть целым числом."
         )
-
-    if max_d < MIN_DEPTH or max_d > MAX_DEPTH:
+    if depth < MIN_DEPTH or depth > MAX_DEPTH:
         raise ConfigError(
             f"Параметр 'max_depth' должен быть от {MIN_DEPTH} "
             f"до {MAX_DEPTH}."
