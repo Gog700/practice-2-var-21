@@ -1,12 +1,12 @@
-import xml.etree.ElementTree as ET
+import xml.etree.ElementTree as et
 import urllib.request
 import urllib.error
 
 
 def parse_pom_xml(xml_content: str) -> list:
     try:
-        root = ET.fromstring(xml_content)
-    except ET.ParseError:
+        root = et.fromstring(xml_content)
+    except et.ParseError:
         raise Exception("Ошибка парсинга XML: неверный формат файла")
 
     deps = []
@@ -34,4 +34,4 @@ def get_dependencies(repo_url: str, test_mode: bool) -> list:
             content = response.read().decode("utf-8")
             return parse_pom_xml(content)
     except urllib.error.URLError:
-        raise Exception(f"Не удалось скачать pom.xml по адресу: {url}")
+        raise Exception(f"Не удалось скачать pom.xml: {url}")
