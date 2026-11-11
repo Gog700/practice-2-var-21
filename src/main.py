@@ -23,12 +23,8 @@ def main() -> None:
     except ConfigError as error:
         print(f"Ошибка конфигурации: {error}")
         sys.exit(1)
-        
-    print("Загруженные параметры (ключ-значение):")
-    for key, value in config.items():
-        print(f"{key} = {value}")
-        
-    print("\nПолучение прямых зависимостей...")
+
+    print("Получение прямых зависимостей...")
     
     try:
         deps = get_dependencies(
